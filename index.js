@@ -1,20 +1,25 @@
 var Twitter = require('twitter');
 const config = require("./config.json");
+const event = new Date(Date.now());
 var client = new Twitter({
     consumer_key: config.twitter.consumer_key,
     consumer_secret: config.twitter.consumer_secret,
     access_token_key: config.twitter.access_token_key,
     access_token_secret: config.twitter.access_token_secret
   });
-  const Discord = require('discord.js');
+console.log("████████╗██╗    ██╗██╗████████╗████████╗███████╗██████╗     ██████╗  ██████╗ ████████╗\n╚══██╔══╝██║    ██║██║╚══██╔══╝╚══██╔══╝██╔════╝██╔══██╗    ██╔══██╗██╔═══██╗╚══██╔══╝\n   ██║   ██║ █╗ ██║██║   ██║      ██║   █████╗  ██████╔╝    ██████╔╝██║   ██║   ██║   \n   ██║   ██║███╗██║██║   ██║      ██║   ██╔══╝  ██╔══██╗    ██╔══██╗██║   ██║   ██║   \n   ██║   ╚███╔███╔╝██║   ██║      ██║   ███████╗██║  ██║    ██████╔╝╚██████╔╝   ██║   \n   ╚═╝    ╚══╝╚══╝ ╚═╝   ╚═╝      ╚═╝   ╚══════╝╚═╝  ╚═╝    ╚═════╝  ╚═════╝    ╚═╝   \n                                                                                      \n██████╗ ██╗   ██╗    ██╗ ██████╗███████╗██████╗  ██████╗                              \n██╔══██╗╚██╗ ██╔╝    ██║██╔════╝██╔════╝██╔══██╗██╔═══██╗                             \n██████╔╝ ╚████╔╝     ██║██║     █████╗  ██████╔╝██║   ██║                             \n██╔══██╗  ╚██╔╝      ██║██║     ██╔══╝  ██╔══██╗██║   ██║                             \n██████╔╝   ██║       ██║╚██████╗███████╗██║  ██║╚██████╔╝                             \n╚═════╝    ╚═╝       ╚═╝ ╚═════╝╚══════╝╚═╝  ╚═╝ ╚═════╝                              \n                                                                                      ")
+console.log(event.toLocaleTimeString('fr-FR',{ timeZone: 'Europe/Paris' })+" | Démarrage");
+const Discord = require('discord.js');
   const discordClient = new Discord.Client();
   discordClient.on('message', message =>{
     if(message.channel.id =="851025011145310228"){
+        if(message.author.bot)return;
       var twitterName = require('twitter-name');
       twitterName(message.content, function (err, isAvailable) {
       if(isAvailable == true){
         message.channel.send("Hmm, that's sus. I don't find any Twitter user with that name.")
       }else{
+          const htweet = new Date(Date.now());
         client.get('followers/list', {screen_name: 'AmongUsGame'}, function(error2, fol) {
           if(error2) throw error2;
           //console.log(fol.users);  // The favorites.
@@ -49,7 +54,8 @@ var client = new Twitter({
           let tweetos = Math.floor(Math.random() * replies.length);
         client.post('statuses/update', {status: `${replies[tweetos]}`},  function(error, tweet, response) {
           if(error) throw error;
-          console.log("Tweet Posté")
+          console.log(htweet.toLocaleTimeString('fr-FR',{ timeZone: 'Europe/Paris' })+" | Post d'un tweet depuis Discord");
+            message.channel.send("Great news, your tweet has been posted !")
           //console.log(tweet);  // Tweet body.
           //console.log(response);  // Raw response object.
         });
@@ -61,9 +67,8 @@ var client = new Twitter({
       return;
     }
   })
-  
   setInterval(function(){
-  
+      const htweet = new Date(Date.now());
   client.get('followers/list', {screen_name: 'AmongUsGame'}, function(error2, fol) {
     if(error2) throw error2;
     //console.log(fol.users);  // The favorites.
@@ -98,8 +103,7 @@ var client = new Twitter({
     let tweetos = Math.floor(Math.random() * replies.length);
   client.post('statuses/update', {status: `${replies[tweetos]} #amongus #sus`},  function(error, tweet, response) {
     if(error) throw error;
-    console.log("Tweet Posté")
-    //console.log(tweet);  // Tweet body.
+	console.log(htweet.toLocaleTimeString('fr-FR',{ timeZone: 'Europe/Paris' })+" | Post d'un tweet");
     //console.log(response);  // Raw response object.
   });
   
