@@ -20,6 +20,7 @@
     "axios": "^0.21.1",
     "twitter": "^1.7.1",
     "twitter-name": "^1.0.0",
-    "discord.js":"12.5.3"
+    "discord.js": "12.5.3",
+    "express": "^4.17.1"
   }
 }
