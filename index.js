@@ -11,13 +11,21 @@ console.log("████████╗██╗    ██╗██╗███
 console.log(event.toLocaleTimeString('fr-FR',{ timeZone: 'Europe/Paris' })+" | Démarrage");
 const Discord = require('discord.js');
   const discordClient = new Discord.Client();
+  var loading = new Discord.MessageEmbed()
+.setDescription("<a:loading:851052297383182346> I am processing your request, please wait a second.")
+.setColor("2f3136");
+var log = new Discord.MessageEmbed()
+.setColor("2f3136");
   discordClient.on('message', message =>{
     if(message.channel.id =="851025011145310228"){
         if(message.author.bot)return;
+        message.channel.send(loading).then(msg => {
       var twitterName = require('twitter-name');
       twitterName(message.content, function (err, isAvailable) {
       if(isAvailable == true){
-        message.channel.send("Hmm, that's sus. I don't find any Twitter user with that name.")
+        loading.setDescription("❌ Hmm, that's sus. I don't find any Twitter user with that name.")
+        loading.setColor("RED")
+        m.edit(loading)
       }else{
           const htweet = new Date(Date.now());
         client.get('followers/list', {screen_name: 'AmongUsGame'}, function(error2, fol) {
@@ -55,17 +63,24 @@ const Discord = require('discord.js');
         client.post('statuses/update', {status: `${replies[tweetos]}`},  function(error, tweet, response) {
           if(error) throw error;
           console.log(htweet.toLocaleTimeString('fr-FR',{ timeZone: 'Europe/Paris' })+" | Post d'un tweet depuis Discord");
-            message.channel.send("Great news, your tweet has been posted !")
-          //console.log(tweet);  // Tweet body.
-          //console.log(response);  // Raw response object.
+          loading.setDescription("✅ Great news, your tweet has been posted for @"+message.content+"!")
+          loading.setColor("GREEN")
+          m.edit(loading)
+          log.setTitle("🐦 New Tweet ! 🐦")
+          .setDescription("Sent from Discord by <@!"+message.author.id+">")
+          .addField("Mention :",
+          "@"+message.content)
+          discordClient.channels.cache.get("851054671279292416").send(log)
         });
         
       });
       }
 });
+        })
     }else{
       return;
     }
+  
   })
   setInterval(function(){
       const htweet = new Date(Date.now());
@@ -104,7 +119,11 @@ const Discord = require('discord.js');
   client.post('statuses/update', {status: `${replies[tweetos]} #amongus #sus`},  function(error, tweet, response) {
     if(error) throw error;
 	console.log(htweet.toLocaleTimeString('fr-FR',{ timeZone: 'Europe/Paris' })+" | Post d'un tweet");
-    //console.log(response);  // Raw response object.
+  log.setTitle("🐦 New Tweet ! 🐦")
+          .setDescription("Sent from Twitter by <@!851028408619892747")
+          .addField("Mention :",
+          "@"+fol.users[levainqueur].screen_name)
+          discordClient.channels.cache.get("851054671279292416").send(log)
   });
   
 });
