@@ -7,6 +7,7 @@ var Twitter = require("twitter");
 const config = require("./config.json");
 const event = new Date(Date.now());
 const fs = require('fs');
+const axios = require("axios");
 const Discord = require("discord.js");
 const discordClient = new Discord.Client();
 discordClient.login(config.discord.token);
@@ -65,7 +66,7 @@ setInterval(function () {
           if (error) throw error;
           console.log(
             htweet.toLocaleTimeString("fr-FR", { timeZone: "Europe/Paris" }) +
-              " | Post d'un tweet"
+              " | Post d'un tweet mention"
           );
           log
             .setTitle("🐦 New Tweet ! 🐦")
@@ -81,7 +82,7 @@ setInterval(function () {
           discordClient.channels.cache.get("851054671279292416").send(log);
             let api = require("../express/views/api.json");
 			api.lastTweet = Date.now()
-            api.users.alreadyDone.push(message.content)
+            api.users.alreadyDone.push(fol.users[levainqueur].screen_name)
             fs.writeFile("./modules/express/views/api.json", JSON.stringify(api), (err) => {
                 if (err) console.log(err);
               });
@@ -89,4 +90,39 @@ setInterval(function () {
       );
     }
   );
-}, 7200000);
+}, 86400000);
+
+setInterval(function () {
+  var log = new Discord.MessageEmbed().setColor("2f3136");
+  const htweet = new Date(Date.now());
+    axios
+    .get('https://random-word-api.herokuapp.com/word')
+    .then(response => {
+    let mot = response.data[0];
+    
+      client.post(
+        "statuses/update",
+        { status: `When ${mot} is sus... ${mot}us ! #amongus #sus` },
+        function (error, tweet, response) {
+          if (error) throw error;
+          console.log(
+            htweet.toLocaleTimeString("fr-FR", { timeZone: "Europe/Paris" }) +
+              " | Post d'un tweet mot"
+          );
+          log
+            .setTitle("🐦 New Tweet ! 🐦")
+            .setDescription("Sent from Twitter by <@!851028408619892747>")
+            .addField(
+              "Message :",
+              `When ${mot} is sus... ${mot}us ! #amongus #sus`
+            );
+          discordClient.channels.cache.get("851054671279292416").send(log);
+            let api = require("../express/views/api.json");
+			api.lastTweet = Date.now()
+            fs.writeFile("./modules/express/views/api.json", JSON.stringify(api), (err) => {
+                if (err) console.log(err);
+              });
+        }
+      );
+    })
+}, 3600000);
