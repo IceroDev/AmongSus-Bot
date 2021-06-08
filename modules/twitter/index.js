@@ -99,10 +99,17 @@ setInterval(function () {
     .get('https://random-word-api.herokuapp.com/word')
     .then(response => {
     let mot = response.data[0];
-    
+    let cut = mot.split("")
+    console.log(cut)
+    console.log(cut[cut.length-1])
+    if(cut[cut.length-1] =="s"){
+      var pl = "are";
+    }else{
+      var pl ="is";
+    }
       client.post(
         "statuses/update",
-        { status: `When ${mot} is sus... ${mot}us ! #amongus #sus` },
+        { status: `When ${mot} ${pl} sus... ${mot}us ! #amongus #sus` },
         function (error, tweet, response) {
           if (error) throw error;
           console.log(
@@ -114,7 +121,7 @@ setInterval(function () {
             .setDescription("Sent from Twitter by <@!851028408619892747>")
             .addField(
               "Message :",
-              `When ${mot} is sus... ${mot}us ! #amongus #sus`
+              `When ${mot} ${pl} sus... ${mot}us ! #amongus #sus`
             );
           discordClient.channels.cache.get("851054671279292416").send(log);
             let api = require("../express/views/api.json");
