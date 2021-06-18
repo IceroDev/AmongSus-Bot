@@ -12,7 +12,7 @@
   <a href="https://discord.gg/deJc2RJRUD"><img src="https://discord.com/api/guilds/851024534039298048/embed.png?style=banner3" alt="Discord"></a>
  </p>
 <p align="center">
-  <a href="https://twitter.com/AmongsusBot?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @AmongsusBot</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <a href="https://twitter.com/AmongsusBot?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @AmongsusBot</a>
   </p>
 <h1>Hosting</h1>
 AmongSus Bot is hosted on a nodeJS package at DediGo <a href="https://dedigo.fr/">visit DediGo.fr</a>
