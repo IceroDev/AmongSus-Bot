@@ -17,7 +17,8 @@ let api = require("./modules/express/views/api.json");
 api.lastReload = Date.now()
 fs.writeFile("./modules/express/views/api.json", JSON.stringify(api), (err) => {
     if (err) console.log(err);
-  });/*************************************************
+  });
+/*************************************************
  * 
  * Express server Initialisation
  * 
